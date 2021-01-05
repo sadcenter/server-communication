@@ -3,13 +3,12 @@ Api for spigot sectors, connecting servers etc.
 Based on redis (RedissonClient).
 Not recommended for license systems etc.
 
-#Additional informations
-If you use this api for sectors etc, and you receive a big amount of packets in packet handler I recommend use a `AsyncPacketListener` implementation
-#
+# Additional informations
+If you use this api for sectors etc, and you receive a big amount of packets in packet handler I recommend use a `AsyncPacketListener` implementation.
 If you find issue please report it on github or write to me on discord `jerzyk#3904`
 
 
-##Usage:
+## Usage:
 ```java
         PacketManager packetManager = new PacketManager(Redisson.create(), new FastSerializationSerializer());
         packetManager.sendPacket(
@@ -26,7 +25,7 @@ If you find issue please report it on github or write to me on discord `jerzyk#3
         });
 ```
 
-##Serializers
+## Serializers
 Create your own serializer. (Only serializer to byte-array)
 ```java
 
@@ -45,7 +44,7 @@ public final class YourSerializer implements RedisSerializer {
 
 ```
 
-##Async functions.
+## Async functions.
 Async listeners.
 ```java
     packetManager.registerPacketListener(new AsyncPacketListener<Packet>(
@@ -73,9 +72,9 @@ public final class YourAsyncRunner implements AsyncRunner {
 }
 ```
 
-##Callback (responding/reply) function.
+## Callback (responding/reply) function.
 API makes easy responding to server request packets.
-####Ok but examples?
+#### Ok but examples?
 Example packet:
 ```java
 public final class EnableServiceRequest extends PacketCallback {
@@ -140,22 +139,22 @@ Example packet sending:
 
 
 
-##Ready implementation
+## Ready implementation
 This api contains ready implementation for you!
 
-###Serializers
+### Serializers
 * **[Fast-Serializer](https://github.com/RuedigerMoeller/fast-serialization)** - [Class](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/serializers/impl/FastSerializationSerializer.java)
 
-###Async Runners
+### Async Runners
 
-#####From java:
+##### From java:
 
 * **[ForkJoinPool](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/ForkJoinPoolAsyncRunner.java)**
 * **[FutureTask](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/FutureTaskAsyncRunner.java)**
 
-#####For bukkit developers:
+##### For bukkit developers:
 
 * **[BukkitScheduler](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/BukkitSchedulerAsyncRunner.java)**
 
-#####Guava:
+##### Guava:
 * **[ListenableFuture](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/guava/ListenableFutureAsyncRunner.java)**
