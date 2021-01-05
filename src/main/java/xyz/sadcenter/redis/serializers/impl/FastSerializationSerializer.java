@@ -17,7 +17,7 @@ public final class FastSerializationSerializer implements RedisSerializer {
 
     @Override
     public byte[] serialize(Packet packet) {
-        return ByteBuffer.wrap(fstConfiguration.asByteArray(packet)).array();
+        return fstConfiguration.asByteArray(packet);
     }
 
     @Override
