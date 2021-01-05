@@ -154,7 +154,7 @@ This api contains ready implementation for you!
 
 **For bukkit developers:**
 
-* **[BukkitScheduler](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/BukkitSchedulerAsyncRunner.java)**
+* **[BukkitScheduler](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/bukkit/BukkitSchedulerAsyncRunner.java)**
 
 **Guava:**
 * **[ListenableFuture](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/guava/ListenableFutureAsyncRunner.java)**
