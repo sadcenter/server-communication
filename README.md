@@ -8,6 +8,9 @@ If you use this api for sectors etc, and you receive a big amount of packets in 
 If you find issue please report it on github or write to me on discord `jerzyk#3904`
 
 
+# TODO
+Codec system.
+
 ## Usage:
 ```java
         PacketManager packetManager = new PacketManager(Redisson.create(), new FastSerializationSerializer());
