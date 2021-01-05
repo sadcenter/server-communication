@@ -116,7 +116,7 @@ public final class EnableServiceHandler extends PacketListener<EnableServiceRequ
 
     @Override
     protected void onPacketReceived(EnableServiceRequest received) {
-        if (received.getServiceName().equalsIgnoreCase("33"))
+        if (received.getServiceName().equals("33"))
             received.setCanEnable(true);
 
         packetManager.reply(received);
