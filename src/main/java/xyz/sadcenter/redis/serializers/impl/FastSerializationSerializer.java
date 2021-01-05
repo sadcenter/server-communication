@@ -1,7 +1,6 @@
 package xyz.sadcenter.redis.serializers.impl;
 
 import org.nustaq.serialization.FSTConfiguration;
-import org.redisson.client.codec.BaseCodec;
 import xyz.sadcenter.redis.abstracts.Packet;
 import xyz.sadcenter.redis.serializers.RedisSerializer;
 
