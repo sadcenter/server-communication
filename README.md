@@ -75,7 +75,7 @@ public final class YourAsyncRunner implements AsyncRunner {
 ## Callback (responding/reply) function.
 API makes easy responding to server request packets.
 #### Ok but examples?
-Example packet:
+**Example packet:**
 ```java
 public final class EnableServiceRequest extends PacketCallback {
 
@@ -99,11 +99,11 @@ public final class EnableServiceRequest extends PacketCallback {
     }
 }
 ```
-Responding with
+**Responding:**
 ```java
 packetManager.reply(packet);
 ```
-Example listener? here you are
+**Example listener? here you are**
 ```java
 public final class EnableServiceHandler extends PacketListener<EnableServiceRequest> {
 
@@ -124,7 +124,7 @@ public final class EnableServiceHandler extends PacketListener<EnableServiceRequ
 }
 ```
 
-Example packet sending:
+**Example packet sending:**
 ```java
         PacketManager packetManager = new PacketManager(Redisson.create(), new FastSerializationSerializer());
         packetManager.registerPacketListener(new EnableServiceHandler(packetManager.getRedisSerialization(), packetManager));
@@ -147,14 +147,14 @@ This api contains ready implementation for you!
 
 ### Async Runners
 
-##### From java:
+**From java:**
 
 * **[ForkJoinPool](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/ForkJoinPoolAsyncRunner.java)**
 * **[FutureTask](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/FutureTaskAsyncRunner.java)**
 
-##### For bukkit developers:
+**For bukkit developers:**
 
 * **[BukkitScheduler](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/BukkitSchedulerAsyncRunner.java)**
 
-##### Guava:
+**Guava: **
 * **[ListenableFuture](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/guava/ListenableFutureAsyncRunner.java)**
