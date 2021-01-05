@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @project RedisCommunicationForked
  */
 
-public class PacketManager {
+public final class PacketManager {
 
     private final RedissonClient redissonClient;
     private final RedisSerializer redisSerialization;
