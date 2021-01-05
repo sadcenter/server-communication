@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @project RedisCommunicationForked
  */
 
-public final class PacketManager {
+public class PacketManager {
 
     private final RedissonClient redissonClient;
     private final RedisSerializer redisSerialization;
@@ -64,6 +64,7 @@ public final class PacketManager {
                     if (callback == null) {
                         return;
                     }
+
                     this.tempListeners.invalidate(response.getPacketID());
 
                     if (response.isSuccess())

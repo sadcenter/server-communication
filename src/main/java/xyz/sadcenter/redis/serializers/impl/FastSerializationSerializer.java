@@ -1,6 +1,7 @@
 package xyz.sadcenter.redis.serializers.impl;
 
 import org.nustaq.serialization.FSTConfiguration;
+import org.redisson.client.codec.BaseCodec;
 import xyz.sadcenter.redis.abstracts.Packet;
 import xyz.sadcenter.redis.serializers.RedisSerializer;
 
@@ -17,7 +18,7 @@ public final class FastSerializationSerializer implements RedisSerializer {
 
     @Override
     public byte[] serialize(Packet packet) {
-        return fstConfiguration.asByteArray(packet);
+        return ByteBuffer.wrap(fstConfiguration.asByteArray(packet)).array();
     }
 
     @Override
