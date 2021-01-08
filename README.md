@@ -38,12 +38,12 @@ public final class YourSerializer implements RedisSerializer {
 
     @Override
     public byte[] serialize(Packet packet) {
-       //code returning packet as byte array
+       //code returning byte-array as packet
     }
 
     @Override
     public <T extends Packet> T deserialize(byte[] bytes) {
-       //code returning byte-array as packet
+       //code returning packet from byte-array 
     }
 }
 
