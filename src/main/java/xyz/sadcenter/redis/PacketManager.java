@@ -93,6 +93,10 @@ public class PacketManager {
         this.redissonClient.getTopic(packetListener.getChannel()).addListener(byte[].class, packetListener);
     }
 
+    public void registerAsyncPacketListener(PacketListener<? extends Packet> packetListener) {
+        this.redissonClient.getTopic(packetListener.getChannel()).addListenerAsync(byte[].class, packetListener);
+    }
+
     public RedisSerializer getRedisSerialization() {
         return redisSerialization;
     }
