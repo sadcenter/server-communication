@@ -4,12 +4,12 @@ Based on redis (RedissonClient).
 Not recommended for license systems etc.
 
 # Additional informations
-If you use this api for sectors etc, and you receive a big amount of packets in packet handler I recommend use a `AsyncPacketListener` implementation.
+If you use this api for sectors etc, and you receive a big amount of packets in packet handler I recommend use a `PacketManager#registerAsyncPacketListener` method in registration.
 If you find issue please report it on github or write to me on discord `jerzyk#3904`
 
 
 # TODO
-Codec system.
+Codec system. 
 
 #
 
@@ -65,6 +65,9 @@ Async listeners.
         });
 
 ```
+#
+OR use `PacketManager#registerAsyncPacketListener` method
+#
 Async runners. Create your own async runner!
 ```java
 public final class YourAsyncRunner implements AsyncRunner {
