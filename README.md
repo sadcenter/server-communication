@@ -67,6 +67,17 @@ Async listeners.
 ```
 #
 OR use `PacketManager#registerAsyncPacketListener` method
+```java
+        packetManager.registerAsyncPacketListener(new PacketListener<Packet>(
+                "channel",
+                packetManager.getRedisSerialization()) {
+            @Override
+            protected void onPacketReceived(Packet received) {
+                //code
+                System.out.println("Received packet in async!");
+            }
+        });
+```
 #
 Async runners. Create your own async runner!
 ```java
