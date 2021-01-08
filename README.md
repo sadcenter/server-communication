@@ -66,8 +66,8 @@ Async listeners.
 
 ```
 #
-OR use `PacketManager#registerAsyncPacketListener` method
-```java
+OR use `PacketManager#registerAsyncPacketListener` method **RECOMMENDED**
+```java 
         packetManager.registerAsyncPacketListener(new PacketListener<Packet>(
                 "channel",
                 packetManager.getRedisSerialization()) {
