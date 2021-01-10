@@ -16,7 +16,7 @@ public final class FutureTaskAsyncRunner implements AsyncRunner {
 
     @Override
     public void runAsync(Runnable runnable) {
-        executorService.submit(runnable);
+        executorService.execute(runnable);
     }
 
 }
