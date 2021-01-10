@@ -17,7 +17,7 @@ public final class ListenableFutureAsyncRunner implements AsyncRunner {
 
     @Override
     public void runAsync(Runnable runnable) {
-        listeningExecutorService.submit(runnable);
+        listeningExecutorService.execute(runnable);
     }
 
 }
