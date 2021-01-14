@@ -7,9 +7,9 @@ import xyz.sadcenter.redis.abstracts.Packet;
  * @project RedisCommunicationForked
  */
 
-public interface Callback {
+public interface Callback<T extends Packet> {
 
-    void done(Packet response);
+    void done(T response);
 
     default void error(String errorMessage) {
     }
