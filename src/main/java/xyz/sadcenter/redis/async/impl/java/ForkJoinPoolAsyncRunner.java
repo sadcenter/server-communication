@@ -13,7 +13,7 @@ public final class ForkJoinPoolAsyncRunner implements AsyncRunner {
 
     @Override
     public void runAsync(Runnable runnable) {
-        ForkJoinPool.commonPool().submit(runnable);
+        ForkJoinPool.commonPool().execute(runnable);
     }
 
 }
