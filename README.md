@@ -1,24 +1,15 @@
 # Packet communications api.
-Api for spigot sectors, connecting servers etc.
-Based on redis (RedissonClient).
+Api for minecraft server network, connecting servers etc.
+Based on redis (RedissonClient, maybe Jedis in future).
 Not recommended for license systems etc.
 
-# Additional informations
-If you use this api for sectors etc, and you receive a big amount of packets in packet handler I recommend use a `PacketManager#registerAsyncPacketListener` method in registration.
-If you find issue please report it on github or write to me on discord `jerzyk#3904`
-
-
-# TODO
-Codec system. 
-
-#
+# Additional information
+If you use this api for minecraft server network etc, and you receive a big amount of heavy packets in packet handler, I recommend use a `PacketManager#registerAsyncPacketListener` method in registration.
+If you find any issue please report it on github or write to me on discord `jerzyk#3904`
 
 ## Usage:
 ```java
         PacketManager packetManager = new PacketManager(Redisson.create(), new FastSerializationSerializer());
-        packetManager.sendPacket(
-                "channel", //channel to send packet
-                packet); //your packet implementation
         packetManager.registerPacketListener(new PacketListener<Packet>(
                 "channel", //listening channel
                 packetManager.getRedisSerialization()) { //your redis serializer
@@ -28,6 +19,9 @@ Codec system.
                 System.out.println("Received packet!");
             }
         });
+
+        packetManager.sendPacket("channel", //channel to send packet
+        packet); //your packet implementation
 ```
 
 ## Serializers
@@ -49,24 +43,8 @@ public final class YourSerializer implements RedisSerializer {
 
 ```
 
-## Async functions.
-Async listeners.
-```java
-    packetManager.registerPacketListener(new AsyncPacketListener<Packet>(
-            "channel", //listening channel
-            packetManager.getRedisSerialization(), //your serializer
-            new FutureTaskAsyncRunner()) { //async runner
-            
-            @Override
-            protected void onPacketReceived(Packet received) {
-                //code
-                System.out.println("received packet in async!");
-            }
-        });
-
-```
-#
-OR use `PacketManager#registerAsyncPacketListener` method **RECOMMENDED**
+## Async packet listeners.
+`PacketManager#registerAsyncPacketListener`
 ```java 
         packetManager.registerAsyncPacketListener(new PacketListener<Packet>(
                 "channel",
@@ -78,19 +56,6 @@ OR use `PacketManager#registerAsyncPacketListener` method **RECOMMENDED**
             }
         });
 ```
-#
-Async runners. Create your own async runner!
-```java
-public final class YourAsyncRunner implements AsyncRunner {
-
-    @Override
-    public void runAsync(Runnable runnable) {
-        //run runnable as async
-        ForkJoinPool.commonPool().submit(runnable);
-    }
-}
-```
-
 ## Callback (responding/reply) function.
 API makes easy responding to server request packets.
 #### Ok but examples?
@@ -158,22 +123,6 @@ public final class EnableServiceHandler extends PacketListener<EnableServiceRequ
 
 
 
-## Ready implementation
-This api contains ready implementation for you!
 
-### Serializers
+### Default serializers
 * **[Fast-Serializer](https://github.com/RuedigerMoeller/fast-serialization)** - [Class](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/serializers/impl/FastSerializationSerializer.java)
-
-### Async Runners
-
-**From java:**
-
-* **[ForkJoinPool](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/ForkJoinPoolAsyncRunner.java)**
-* **[FutureTask](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/java/FutureTaskAsyncRunner.java)**
-
-**For bukkit developers:**
-
-* **[BukkitScheduler](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/bukkit/BukkitSchedulerAsyncRunner.java)**
-
-**Guava:**
-* **[ListenableFuture](https://github.com/sadcenter/server-communication/blob/main/src/main/java/xyz/sadcenter/redis/async/impl/guava/ListenableFutureAsyncRunner.java)**
