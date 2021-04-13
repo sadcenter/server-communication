@@ -11,9 +11,6 @@ public interface Callback<T extends Packet> {
 
     void done(T response);
 
-    default void error(String errorMessage) {
-    }
-
     default void timeout() {
     }
 

@@ -66,11 +66,7 @@ public class PacketManager {
                     }
 
                     this.tempListeners.invalidate(response.getPacketID());
-
-                    if (response.isSuccess())
-                        callback.done(response);
-                    else
-                        callback.error(response.getErrorMessage());
+                    callback.done(response);
 
                 });
     }
