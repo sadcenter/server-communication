@@ -4,7 +4,7 @@ import xyz.sadcenter.redis.abstracts.Packet;
 
 /**
  * @author sadcenter on 04.01.2021
- * @project RedisCommunication
+ * @project server-communication
  */
 
 public interface RedisSerializer {

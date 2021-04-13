@@ -1,7 +1,12 @@
 package xyz.sadcenter.redis;
 
 
-import com.google.common.cache.*;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.RemovalCause;
+import com.github.benmanes.caffeine.cache.RemovalListener;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
 import org.redisson.api.RedissonClient;
 import xyz.sadcenter.redis.abstracts.Packet;
@@ -16,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author sadcenter on 06.10.2020
- * @project RedisCommunicationForked
+ * @project server-communication
  */
 
 public class PacketManager {
@@ -42,19 +47,19 @@ public class PacketManager {
     public PacketManager(RedissonClient redissonClient, RedisSerializer redisSerialization, int timeoutSeconds, String tempsChannel) {
         this.redissonClient = redissonClient;
         this.redisSerialization = redisSerialization;
-        this.tempListeners = CacheBuilder.newBuilder().expireAfterWrite(timeoutSeconds, TimeUnit.SECONDS).removalListener(new RemovalListener<UUID, Callback>() {
-            @Override
-            public void onRemoval(@NotNull RemovalNotification<UUID, Callback> removalNotification) {
-                if (removalNotification.getValue() == null)
-                    return;
+        this.tempListeners = Caffeine.newBuilder()
+                .expireAfterWrite(timeoutSeconds, TimeUnit.SECONDS)
+                .removalListener(new RemovalListener<UUID, Callback>() {
+                    @Override
+                    public void onRemoval(@Nullable UUID uuid, @Nullable Callback callback, @NonNull RemovalCause removalCause) {
+                        if (callback == null)
+                            return;
 
-                if (removalNotification.getCause().equals(RemovalCause.EXPIRED)) {
-                    removalNotification.getValue().timeout();
-                    System.out.println("[INFO] Callback " + removalNotification.getKey() + " didn't receive response from any server");
-                }
-            }
-
-        }).build();
+                        if (removalCause.equals(RemovalCause.EXPIRED)) {
+                            callback.timeout();
+                        }
+                    }
+                }).build();
         this.tempChannelName = tempsChannel;
 
         this.redissonClient.getTopic(tempsChannel)
@@ -71,25 +76,24 @@ public class PacketManager {
                 });
     }
 
-
-    public void sendPacket(String channel, Packet packet) {
+    public void sendPacket(@NotNull String channel, @NotNull Packet packet) {
         this.redissonClient.getTopic(channel).publish(redisSerialization.serialize(packet));
     }
 
-    public void reply(PacketCallback packet) {
-        this.sendPacket(this.tempChannelName, packet);
-    }
-
-    public void sendPacket(String channel, PacketCallback packetCallback, Callback callback) {
+    public void sendPacket(@NotNull String channel, @NotNull PacketCallback packetCallback, @NotNull Callback callback) {
         this.redissonClient.getTopic(channel).publish(this.redisSerialization.serialize(packetCallback));
         this.tempListeners.put(packetCallback.getPacketID(), callback);
     }
 
-    public void registerPacketListener(PacketListener<? extends Packet> packetListener) {
+    public void reply(@NotNull PacketCallback packet) {
+        this.sendPacket(this.tempChannelName, packet);
+    }
+
+    public void registerPacketListener(@NotNull PacketListener<? extends Packet> packetListener) {
         this.redissonClient.getTopic(packetListener.getChannel()).addListener(byte[].class, packetListener);
     }
 
-    public void registerAsyncPacketListener(PacketListener<? extends Packet> packetListener) {
+    public void registerAsyncPacketListener(@NotNull PacketListener<? extends Packet> packetListener) {
         this.redissonClient.getTopic(packetListener.getChannel()).addListenerAsync(byte[].class, packetListener);
     }
 

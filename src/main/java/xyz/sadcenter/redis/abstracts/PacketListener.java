@@ -5,7 +5,7 @@ import xyz.sadcenter.redis.serializers.RedisSerializer;
 
 /**
  * @author sadcenter on 06.10.2020
- * @project RedisCommunicationForked
+ * @project server-communication
  */
 
 public abstract class PacketListener<T extends Packet> implements MessageListener<byte[]> {

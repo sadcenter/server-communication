@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author sadcenter on 06.10.2020
- * @project RedisCommunicationForked
+ * @project server-communication
  */
 
 public abstract class Packet implements Serializable {

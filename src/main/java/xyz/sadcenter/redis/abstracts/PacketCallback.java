@@ -4,11 +4,12 @@ import java.util.UUID;
 
 /**
  * @author sadcenter on 27.10.2020
- * @project RedisCommunicationForked
+ * @project server-communication
  */
 public abstract class PacketCallback extends Packet {
 
     private final UUID packetID;
+
     public PacketCallback() {
         this.packetID = UUID.randomUUID();
     }

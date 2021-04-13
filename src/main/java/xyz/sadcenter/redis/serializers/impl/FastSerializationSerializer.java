@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 
 /**
  * @author sadcenter on 04.01.2021
- * @project RedisCommunication
+ * @project server-communication
  */
 
 public final class FastSerializationSerializer implements RedisSerializer {
